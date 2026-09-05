@@ -23,6 +23,11 @@ export type AuthResponse = {
     expiresAt?: string;
 };
 
+export type BirthdayGroup = {
+    month?: number;
+    contacts?: Array<Contact> | null;
+};
+
 export type Contact = {
     id?: number;
     firstName: string | null;
@@ -192,7 +197,7 @@ export type GetApiContactsBirthdaysResponses = {
     /**
      * OK
      */
-    200: Array<Contact>;
+    200: Array<BirthdayGroup>;
 };
 
 export type GetApiContactsBirthdaysResponse = GetApiContactsBirthdaysResponses[keyof GetApiContactsBirthdaysResponses];

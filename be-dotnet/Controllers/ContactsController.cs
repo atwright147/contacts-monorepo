@@ -53,11 +53,13 @@ namespace contacts_api.Controllers
       return contactWithFullname;
     }
 
+    public record BirthdayGroup(int Month, List<Contact> Contacts);
+
     // GET: api/Contacts/birthdays
     [HttpGet("birthdays")]
-    public async Task<ActionResult<IEnumerable<Contact>>> GetBirthdays()
+    public async Task<ActionResult<IEnumerable<BirthdayGroup>>> GetBirthdays()
     {
-      return context.Contacts
+      var contacts = context.Contacts
         .Where(c => c.DateOfBirth != null)
         .Select(c => new Contact
         {
@@ -68,6 +70,12 @@ namespace contacts_api.Controllers
           DateOfBirth = c.DateOfBirth,
           IsFavorite = c.IsFavorite
         })
+        .ToList();
+
+      return contacts
+        .GroupBy(c => c.DateOfBirth!.Value.Month)
+        .OrderBy(g => g.Key)
+        .Select(g => new BirthdayGroup(g.Key, g.ToList()))
         .ToList();
     }
 
