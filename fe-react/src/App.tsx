@@ -3,7 +3,10 @@ import { type Routes, useRoutes } from 'raviger';
 import type { JSX } from 'react';
 import { MantineProvider } from '@mantine/core';
 
+import { queryClient } from '#utils/queryClient';
 import { ProtectedRoute } from '#components/ProtectedRoute';
+
+// routes
 import { Calendar } from '#routes/Calendar';
 import { Calls } from '#routes/Calls';
 import { Contacts } from '#routes/Contacts';
@@ -13,11 +16,24 @@ import { Logout } from './routes/Logout';
 import { Messages } from '#routes/Messages';
 import { Root } from '#routes/Root';
 import { Settings } from '#routes/Settings';
-import { queryClient } from '#utils/queryClient';
+import { Contact } from '#routes/Contact';
 
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '#src/index.css';
+
+const routeKeys = [
+  '/',
+  '/login',
+  '/logout',
+  '/calendar',
+  '/calls',
+  '/contacts',
+  '/contacts/:contactId',
+  '/home',
+  '/messages',
+  '/settings',
+] as const;
 
 const routes = {
   '/': () => <Home />,
@@ -26,10 +42,11 @@ const routes = {
   '/calendar': () => <ProtectedRoute><Calendar /></ProtectedRoute>,
   '/calls': () => <ProtectedRoute><Calls /></ProtectedRoute>,
   '/contacts': () => <ProtectedRoute><Contacts /></ProtectedRoute>,
+  '/contacts/:contactId': ({ contactId }) => <ProtectedRoute><Contact contactId={contactId} /></ProtectedRoute>,
   '/home': () => <ProtectedRoute><Home /></ProtectedRoute>,
   '/messages': () => <ProtectedRoute><Messages /></ProtectedRoute>,
   '/settings': () => <ProtectedRoute><Settings /></ProtectedRoute>,
-} satisfies Routes<string>;
+} satisfies Routes<(typeof routeKeys)[number]>;
 
 export const App = (): JSX.Element => {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
