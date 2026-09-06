@@ -15,10 +15,9 @@ import { Root } from '#routes/Root';
 import { Settings } from '#routes/Settings';
 import { queryClient } from '#utils/queryClient';
 
-// import 'normalize.css';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import './index.css';
+import '#src/index.css';
 
 const routes = {
   '/': () => <Home />,
