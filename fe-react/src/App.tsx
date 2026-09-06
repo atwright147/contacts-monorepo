@@ -12,7 +12,7 @@ import { Calls } from '#routes/Calls';
 import { Contacts } from '#routes/Contacts';
 import { Home } from '#routes/Home';
 import { Login } from '#routes/Login';
-import { Logout } from './routes/Logout';
+import { Logout } from '#routes/Logout';
 import { Messages } from '#routes/Messages';
 import { Root } from '#routes/Root';
 import { Settings } from '#routes/Settings';
