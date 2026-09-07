@@ -22,10 +22,13 @@ export function Contacts() {
   ];
 
   const body = useMemo(() => data?.map((row) => ({
-    fullName: `${row.firstName} ${row.lastName}`,
-    email: row.email,
-    dateOfBirth: row.dateOfBirth,
-    favorite: boolToHuman(row.isFavorite),
+    fullName: {
+      value: `${row.firstName} ${row.lastName}`,
+      link: `/contacts/${row.id}`,
+    },
+    email: { value: row.email },
+    dateOfBirth: { value: row.dateOfBirth },
+    favorite: { value: boolToHuman(row.isFavorite) },
   })) ?? [], [data]);
 
   return (

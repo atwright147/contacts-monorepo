@@ -11,8 +11,11 @@ export function Home() {
 
   const body = useMemo(() => {
     return data?.map((row) => ({
-      fullName: `${row.firstName} ${row.lastName}`,
-      email: row.email,
+      fullName: {
+        value: `${row.firstName} ${row.lastName}`,
+        link: `/contacts/${row.id}`,
+      },
+      email: { value: row.email },
     })) ?? [];
   }, [data]);
 

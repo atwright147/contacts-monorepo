@@ -1,7 +1,7 @@
 import { Table } from '@mantine/core';
 import type { JSX, ReactNode } from 'react';
 
-export type Row = Record<string, ReactNode>;
+export type Row = Record<string, { value: ReactNode; link?: string }>;
 export type Head = string[];
 export type Body<T extends Row = Row> = T[];
 
@@ -13,9 +13,9 @@ export interface Props<T extends Row = Row> {
 export function DataTable<T extends Row = Row>({ head, body }: Props<T>): JSX.Element {
   const rows = body.map((row, rowIndex) => (
     <Table.Tr key={rowIndex}>
-      {Object.entries(row).map(([columnKey, value]) => (
+      {Object.entries(row).map(([columnKey, cell]) => (
         <Table.Td key={columnKey}>
-          {value}
+          {cell.link ? <a href={cell.link}>{cell.value}</a> : cell.value}
         </Table.Td>
       ))}
     </Table.Tr>
