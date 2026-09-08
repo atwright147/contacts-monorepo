@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Title } from '@mantine/core';
 import type { JSX } from 'react';
+import { notifications } from '@mantine/notifications';
 
 import {
   getApiContactsByIdOptions,
@@ -27,7 +28,19 @@ export function Contact({ contactId }: Props): JSX.Element {
     ...putApiContactsByIdMutation(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getApiContactsById'] });
+
+      notifications.show({
+        title: 'Success',
+        message: 'Success message',
+      });
     },
+    onError: () => {
+      notifications.show({
+        title: 'Error',
+        message: 'Error message',
+        color: 'red',
+      });
+    }
   });
 
   return (

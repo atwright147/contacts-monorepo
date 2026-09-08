@@ -2,6 +2,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { type Routes, useRoutes } from 'raviger';
 import type { JSX } from 'react';
 import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 
 import { queryClient } from '#utils/queryClient';
 import { ProtectedRoute } from '#components/ProtectedRoute';
@@ -20,6 +21,7 @@ import { Contact } from '#routes/Contact';
 
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
 import '#src/index.css';
 
 const routeKeys = [
@@ -55,6 +57,8 @@ export const App = (): JSX.Element => {
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider defaultColorScheme="auto">
+        <Notifications />
+
         <Root>{route}</Root>
       </MantineProvider>
     </QueryClientProvider>
